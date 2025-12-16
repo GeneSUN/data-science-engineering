@@ -192,6 +192,9 @@ feat_config = FeatureConfig(
 		○ Compute correlation matrix or Variance Inflation Factor (VIF) to detect highly correlated features
 		○ Drop or combine redundant variables
 
+<img width="735" height="326" alt="image" src="https://github.com/user-attachments/assets/a08aa6cf-fb61-43ca-99e0-1fc430bd777e" />
+
+
 ---
 
 ## 3. Machine Learning-Based Feature Engineering
