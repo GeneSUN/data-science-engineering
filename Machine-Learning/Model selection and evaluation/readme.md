@@ -224,7 +224,7 @@ selected_features = coef[coef != 0].index.tolist()
 removed_features = coef[coef == 0].index.tolist()
 ```
   
-	c. Dimensionality Reduction
+	c. Dimensionality Reduction or Matrix Factorization,
 		○ Use PCA or Truncated SVD for unsupervised feature compression
 		○ Useful when dealing with highly correlated numeric variables
 
