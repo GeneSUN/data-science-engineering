@@ -3,7 +3,35 @@
 
 This README is a compact guide to **turning categorical variables into model-ready signals**.
 
-**Notebook companion:** `categorical_modeling.ipynb` (synthetic data + comparisons: **CatBoost** vs **LightGBM (native categorical)** vs a **PyTorch EmbeddingNet**, plus notes on PyTorch Tabular).
+[Notebook companion](https://colab.research.google.com/drive/1cVj3QHHRGIXYXj1JFIc0I8r-zZ4u22qx)
+
+## Table of Contents
+
+- [Handling Categorical Features](#handling-categorical-features)
+  - [0) Quick mental model](#0-quick-mental-model)
+  - [1) Encoders](#1-encoders)
+    - [1.1 Unsupervised encoders (do not use `y`)](#11-unsupervised-encoders-do-not-use-y)
+    - [1.2 Supervised encoders (use `y`) – be careful about leakage](#12-supervised-encoders-use-y--be-careful-about-leakage)
+    - [1.3 Hierarchical encoding with machine learning models](#13-hierarchical-encoding-with-machine-learning-models)
+  - [2) Category-specific models (native categorical handling)](#2-category-specific-models-native-categorical-handling)
+    - [2.1 CatBoost](#21-catboost)
+    - [2.2 LightGBM (native categorical)](#22-lightgbm-native-categorical)
+    - [2.3 XGBoost](#23-xgboost)
+  - [3) Deep Learning: Embeddings and Transformers](#3-deep-learning-embeddings-and-transformers)
+    - [3.1 Embedding + MLP baseline (CategoryEmbeddingModel / EmbeddingNet)](#31-embedding--mlp-baseline-categoryembeddingmodel--embeddingnet)
+    - [3.2 TabTransformer](#32-tabtransformer)
+    - [3.3 FT-Transformer (Feature Tokenizer Transformer)](#33-ft-transformer-feature-tokenizer-transformer)
+    - [3.4 High-level frameworks](#34-high-level-frameworks)
+      - [PyTorch Tabular](#pytorch-tabular)
+      - [FastAI Tabular](#fastai-tabular)
+    - [3.5 Self-supervised pretraining for categorical embeddings](#35-self-supervised-pretraining-for-categorical-embeddings)
+  - [4) Graph-based encoding](#4-graph-based-encoding)
+    - [4.1 Common graph constructions](#41-common-graph-constructions)
+    - [4.2 How to turn graphs into features](#42-how-to-turn-graphs-into-features)
+    - [4.3 When graph encoding helps most](#43-when-graph-encoding-helps-most)
+  - [5) Practical checklist (things that usually bite)](#5-practical-checklist-things-that-usually-bite)
+  - [References](#references)
+
 
 ---
 
