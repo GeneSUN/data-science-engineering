@@ -1,5 +1,7 @@
 # Contextual Embeddings for Tabular Data: TabTransformer
 
+- https://arxiv.org/pdf/2012.06678
+
 ## Context-free vs Contextual Embedding
 
 ### classical context-free embedding
@@ -96,3 +98,25 @@ TabTransformer is superior to both a baseline MLP and recent deep networks for t
 4. We provide and extensively study a **two-phase pretraining then fine-tune procedure** for tabular data, beating the state-of-the-art performance of semi-supervised learning methods.
 
 https://chatgpt.com/s/t_696835b75ec081918a41fadf3bce6cec
+
+
+
+```
+[E_region, E_device, E_plan]
+        ↓
+Multi-Head Self Attention
+        ↓
+Contextualized embeddings
+
+```
+
+```
+[x1] [x2] [region] [device] [plan]
+  ↓    ↓      ↓        ↓        ↓
+ tokenized feature embeddings
+                ↓
+           Transformer
+                ↓
+             prediction
+
+```
