@@ -1,3 +1,15 @@
+## 0) Make generalization possible: remove “ID memorization”
+
+If the destination is new, an ID feature can’t help. **The model needs destination attributes available at day-0:**
+
+- geo/region/country, distance bands, time zone offsets
+- customs / cross-border flags, carrier coverage, service level tiers
+- infrastructure proxies (warehouse type, last-mile density, port/airport proximity)
+
+Onsite phrasing: **“For cold start, I’d ensure features are transferable (available for unseen markets), not purely historical aggregates keyed by destination ID.”**
+
+---
+
 **Bayesian Hierarchical Modeling**
 - https://bayesball.github.io/BOOK/bayesian-hierarchical-modeling.html
 
