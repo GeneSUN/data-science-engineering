@@ -22,4 +22,4 @@ More advanced version, ```category_encoders.glmm.GLMMEncoder```
 
 
 
-
+> "Whatever encoding choosed, validate it doesn't leak information from test set and actually improves cross-validation performance."
