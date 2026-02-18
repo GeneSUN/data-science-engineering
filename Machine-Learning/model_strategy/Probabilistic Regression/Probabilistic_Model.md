@@ -16,6 +16,13 @@ Modeling Approaches:
 
 ## 2.  Loss function: Negative Log Likelyhood
 
+PyTorch
+- What it does: You implement it by outputting distribution parameters and using NLL loss.
+- Key modules:
+  - torch.distributions (Normal, LogNormal, Gamma, etc.)
+  - Loss pattern: loss = -dist.log_prob(y).mean()
+
+
 ```python
 mu, sigma = self.forward(x)
 dist = torch.distributions.Normal(mu, sigma)
@@ -37,26 +44,9 @@ $$Y∣X∼Dist(θ(X))$$
 
 P(Y>n)=1−F(n∣θ(X))
 
-## 4. conformal prediction
 
-PyTorch
-- What it does: You implement it by outputting distribution parameters and using NLL loss.
-- Key modules:
-  - torch.distributions (Normal, LogNormal, Gamma, etc.)
-  - Loss pattern: loss = -dist.log_prob(y).mean()
 
 Pyro (probabilistic programming on PyTorch)
 - What it does: Full probabilistic modeling + Bayesian inference (more powerful, more complex)
 - Package: pyro-ppl
 
-Quantile Regression
-- Predicts quantiles (P50/P90/etc.), not a full parametric distribution
-
-Libraries:
-- lightgbm (quantile objective)
-- xgboost (quantile in newer versions; depends on your install)
-- statsmodels (QuantReg)
-- sklearn (GradientBoostingRegressor has quantile loss; also HistGradientBoosting in some setups)
-
-
-Gaussian Processes (GP)
