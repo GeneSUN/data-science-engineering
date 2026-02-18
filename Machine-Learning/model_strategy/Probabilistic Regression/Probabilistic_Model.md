@@ -13,7 +13,19 @@ To do that, your model must produce a distribution estimate, not just a single p
 
 Modeling Approaches:
 
-## 1. Distributional Regression (Preferred for this task)
+## 1. Quantile Regression 
+
+- ```reg:quantileerror```: Quantile loss, also known as ```pinball loss```. See later sections for its parameter and Quantile Regression for a worked example.
+
+## 2.  Loss function: Negative Log Likelyhood
+
+```python
+mu, sigma = self.forward(x)
+dist = torch.distributions.Normal(mu, sigma)
+loss = -dist.log_prob(y).mean()
+```
+
+## 3. Distributional Regression (Preferred for this task)
 
 Model predicts full conditional distribution:
 
@@ -22,12 +34,13 @@ $$Y∣X∼Dist(θ(X))$$
 | Model Type                          | What it gives                  | Suitable for                     |
 | ----------------------------------- | ------------------------------ | -------------------------------- |
 | **Gaussian / Lognormal regression** | Mean + variance → distribution | Simple baseline                  |
+| Gaussian Processes                  | Mean + variance → distribution | Simple baseline                  |
 | **NGBoost**                         | Full probabilistic prediction  | Best off-the-shelf               |
 | **Parametric Bayesian regression**  | Posterior distribution of Y    | Very strong uncertainty modeling |
 
 P(Y>n)=1−F(n∣θ(X))
 
-## 2. conformal prediction
+## 4. conformal prediction
 
 PyTorch
 - What it does: You implement it by outputting distribution parameters and using NLL loss.
