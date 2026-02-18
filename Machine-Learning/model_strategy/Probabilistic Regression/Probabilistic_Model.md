@@ -31,7 +31,7 @@ $$Y∣X∼Dist(θ(X))$$
 | Model Type                          | What it gives                  | Suitable for                     |
 | ----------------------------------- | ------------------------------ | -------------------------------- |
 | **Gaussian / Lognormal regression** | Mean + variance → distribution | Simple baseline                  |
-| Gaussian Processes                  | Mean + variance → distribution | Simple baseline                  |
+| Gaussian Processes                  |                                |                                  |
 | **NGBoost**                         | Full probabilistic prediction  | Best off-the-shelf               |
 | **Parametric Bayesian regression**  | Posterior distribution of Y    | Very strong uncertainty modeling |
 
