@@ -8,8 +8,9 @@
         - [1.1 Quantile Regression Models](#11-quantile-regression-models)
         - [1.2 Parametric Neural Networks](#12-parametric-neural-networks)
     - [Category 2 — Specialized Probabilistic Models](#category-2--specialized-probabilistic-models)
-3. [Why NGBoost is not popular?](#why-ngboost-is-not-popular)
-4. [Industry Practice](#if-you-look-at-the-tech-industry)
+        - Gaussian Processes
+        - Diffusion-Based Probabilistic Models
+        - [Why NGBoost is not popular?](#why-ngboost-is-not-popular)
 
 #  Derived Probabilistic Prediction Methods
 
