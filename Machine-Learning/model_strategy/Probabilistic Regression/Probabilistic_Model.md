@@ -1,12 +1,46 @@
 
+## 1.Prediction intervals using conformal prediction
 
-Classical Regression:
+Conformal prediction (1) uses a regression model to produce point forecasts, and (2) uses **empirical forecast errors** to construct prediction **intervals**.
 
-$$Y_pred​=E[Y∣X]$$
+```
+Regression model → point forecast
+              +
+Empirical residual quantiles → interval width
+              =
+Conformal prediction interval
+```
 
-$$Prob(Y>n∣X)$$
+For example:
+| True y | Predicted y | Residual |
+| ------ | ----------- | -------- |
+| 1000   | 980         | 20       |
+| 1100   | 1050        | 50       |
+| 900    | 950         | -50      |
 
-To do that, your model must produce a distribution estimate, not just a single point.
+- If you use variance of residual, $$s^2 = Σ(r_i - r̄)^2 / (n-1)$$
+  
+  - For ŷ=980  -> [930, 1030]
+  - For ŷ=1050 -> [1000, 1100]
+  - For ŷ=950  -> [900, 1000]
+  
+- If you want the usual 90% interval (α = 0.10), q = 50:
+
+## 2.Binary classification on a thresholded target
+
+Convert a continuous target **Y** into an event indicator $`Z_u = \mathbb{1}\{Y > u\}`$, then model  $$Pr(Y>u∣X)$$
+
+- what Regression does:
+
+$$Y_{pred}​=E[Y∣X]$$
+
+- Convert regression to exceeding classification:
+
+$$Pr(Y>u∣X)$$
+
+Example
+- [AWS predictive maintenance: predict failure probability, then trigger action if it exceeds a threshold](https://aws.amazon.com/blogs/iot/asset-maintenance-with-aws-iot-services-predict-and-respond-to-potential-failures-before-they-impact-your-business/)
+- 
 
 Modeling Approaches:
 
