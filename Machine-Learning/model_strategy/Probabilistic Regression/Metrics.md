@@ -1,13 +1,13 @@
 
 
 ## 1. Evaluate the full distribution
-### CRPS
+### 1.1. CRPS
 
-### Log score / Negative log-likelihood:
+### 1.2. Log score / Negative log-likelihood:
 
 ## 2. Evaluate the specific threshold event
 
-### Brier score:
+### 2.1. Brier score:
 
 **Brier score: good for one threshold event, but throws away magnitude once the label is created.**
 
@@ -33,5 +33,5 @@ $$LogLoss=−[ylogp+(1−y)log(1−p)]$$
 
 
 
-### Precision/Recall or ROC-AUC:
+### 2.2. Precision/Recall or ROC-AUC:
 
