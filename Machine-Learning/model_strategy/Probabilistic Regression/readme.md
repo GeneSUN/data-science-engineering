@@ -143,6 +143,8 @@ dist = torch.distributions.Normal(mu, sigma)
 loss = -dist.log_prob(y).mean()
 ```
 
+---
+
 ## Category 2 — Specialized Probabilistic Models
 
 These models are designed from the ground up to estimate probability distributions.
