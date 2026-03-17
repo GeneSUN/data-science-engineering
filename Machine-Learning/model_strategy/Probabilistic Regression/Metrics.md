@@ -20,6 +20,8 @@
 
 ### 1.4. pinball_loss
 
+### 1.5 WQL(weighted quantile loss)
+
 ## 2. Evaluate the specific threshold event-Classification Metrics
 
 ### 2.1. Brier score:
