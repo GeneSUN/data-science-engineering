@@ -5,6 +5,7 @@
    - [Log score / Negative log-likelihood](#12-log-score--negative-log-likelihood)
    - [Interval Coverage](#13-interval_coverage)
    - [Pinball Loss](#14-pinball_loss)
+   - [WQL](#15-wql)
 2. [Evaluate the specific threshold event (Classification Metrics)](#2-evaluate-the-specific-threshold-event-classification-metrics)
    - [Brier Score](#21-brier-score)
    - [Precision / Recall or ROC-AUC](#22-precisionrecall-or-roc-auc)
@@ -20,7 +21,8 @@
 
 ### 1.4. pinball_loss
 
-### 1.5 WQL(weighted quantile loss)
+### 1.5. WQL
+(weighted quantile loss)
 
 ## 2. Evaluate the specific threshold event-Classification Metrics
 
