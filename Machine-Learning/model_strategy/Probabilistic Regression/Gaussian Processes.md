@@ -1,56 +1,96 @@
 # GP is “a probability distribution over functions”
 
+# Gaussian Process (GP) — Quick Guide
 
-The kernel k(x,x') is the definition of similarity: if two inputs are “similar,” the degree of their outputs correlated.
-- close in time → strongly correlated
-- far apart → weakly correlated
+## Core Idea
+A **Gaussian Process (GP)** is a **distribution over functions**.
 
-**Why ```uncertainty``` behaves nicely**
-- Near many observations → uncertainty shrinks
-- Far from data → uncertainty grows back toward the prior
+Instead of learning one function, GP models **many possible functions + uncertainty**.
 
-This “mean + uncertainty band” behavior is a big reason people like GPs.
+---
 
-## Math
+## Bayesian View
 
-<img width="592" height="714" alt="Screenshot 2026-03-01 at 4 28 18 PM" src="https://github.com/user-attachments/assets/17c22803-3cd5-4235-b554-85bd27a95f97" />
+### 1. Prior — belief before data
 
+Define what functions look like:
 
-## Procedure
-<img width="789" height="1796" alt="output (8)" src="https://github.com/user-attachments/assets/c13e0086-7828-4454-b8f4-c13b9f31c537" />
+- Mean function:  
+  - usually 0 (or data mean if normalized)
 
-### Step 1. Before seeing data, you define a prior
+- Kernel (covariance):  
+  defines similarity → correlation of outputs
 
-In GPR, you first specify what kinds of functions you think are plausible before looking at the training data.
-This prior has two parts:
-- a mean function
-  - 0 if ```normalize_y=False``` or the training target mean if ```normalize_y=True```
-- a covariance function, which is the kernel
-  - prior covariance is specified by the kernel object you pass in
+Examples:
+- RBF → smooth
+- Periodic → repeating
+- DotProduct → linear
 
-### Step 2. The kernel 
-
-- RBF kernel → smooth functions
-- Periodic kernel → repeating patterns
-- DotProduct kernel → linear-style behavior
-
-1. The kernel has hyperparameters;
-2. during fitting, GPR learns those hyperparameters**
-3. the kernel hyperparameters are optimized by maximizing the log-marginal-likelihood (LML).
-
-> “Find the smoothness and noise level that best explain the data without overcomplicating the function.”
+<img width="689" height="1796" alt="output (8)" src="https://github.com/user-attachments/assets/c13e0086-7828-4454-b8f4-c13b9f31c537" />
 
 
-### Step 3. Noise is handled by alpha or WhiteKernel
+**Interpretation**  
+> “What kinds of functions do I expect?”
 
-- Option A: alpha
-- Option B: WhiteKernel
+---
 
-### Step 4. After fitting, GP predicts a mean and standard deviation
+### 2. Likelihood — data assumption
 
+Assume noisy observations:
 
-### Summary
-$$Posterior ∝ Prior×Likelihood$$
+$$
+y = f(x) + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2)
+$$
+
+Noise handling:
+- `alpha` (fixed noise)
+- `WhiteKernel` (learn noise)
+
+**Interpretation**  
+> “If this function is true, how likely is the data?”
+
+---
+
+### 3. Posterior — updated belief
+
+Combine prior + data:
+
+$$
+\text{Posterior} \propto \text{Prior} \times \text{Likelihood}
+$$
+
+Output:
+- mean prediction
+- uncertainty (std)
+
+Key behavior:
+- near data → low uncertainty
+- far from data → high uncertainty
+
+**Interpretation**  
+> “Updated distribution of functions after seeing data”
+
+---
+
+## Learning
+
+GP learns **kernel hyperparameters** by maximizing:
+
+- Log Marginal Likelihood (LML)
+
+Goal:
+> fit data well + avoid overfitting
+
+---
+
+## Summary
+
+```text
+Prior     → define function shape (kernel)
+Likelihood→ assume noise model
+Posterior → update with data → mean + uncertainty
+```
+
 
 
 ## Practical
