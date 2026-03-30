@@ -4,9 +4,7 @@ This README summarizes a practical framework for predicting the popularity of a 
 
 The focus is on hierarchical modeling (Bayesian multilevel ANOVA style), which balances artist-specific information with population-level information.
 
----
-
-# 🎯 Goal
+**Goal**
 
 Predict the **next-song popularity** for:
 
@@ -15,9 +13,11 @@ Predict the **next-song popularity** for:
 
 ---
 
-# 🧩 Modeling Strategies
+**Modeling Strategies**
 
 ## 1️⃣ Complete Pooling
+
+<details>
 
 ### Assumption
 All songs are exchangeable. Artist identity is ignored.
@@ -38,10 +38,11 @@ Every artist gets the same prediction centered at the global mean.
 ❌ Ignores artist differences  
 ❌ Beyoncé ≈ unknown artist
 
----
+</details>
 
 ## 2️⃣ No Pooling
 
+<details>
 ### Assumption
 Each artist is totally independent.
 
@@ -61,21 +62,27 @@ Each artist’s prediction is centered near their sample mean.
 ❌ Overfits noise  
 ❌ Cannot predict unseen artists
 
----
+</details>
 
 ## 3️⃣ Hierarchical / Partial Pooling ✅ (Recommended)
+
+<details>
 
 ### Core Idea
 Artists differ, but they come from a shared population.
 
 We **borrow strength across artists**.
 
+</details>
+
 ---
 
-# 🏗️ Model Structure
+## Model Structure
 
-## Layer 1 — Within-Artist Model
+### Layer 1 — Within-Artist Model
 
+
+  
 Songs vary around the artist’s mean:
 
 $$
@@ -86,10 +93,12 @@ $$
 - $$\mu_j$$: artist-specific mean  
 - $$\sigma_{within}$$: shared within-artist variability
 
----
 
-## Layer 2 — Between-Artist Model
 
+### Layer 2 — Between-Artist Model
+
+
+  
 Artist means vary around a global mean:
 
 $$
@@ -100,30 +109,29 @@ $$
 - $$\mu$$: global mean popularity  
 - $$\sigma_{between}$$: between-artist variability
 
----
 
-## Layer 3 — Priors
+### Layer 3 — Priors
 
+  
 Priors on global parameters:
 
 $$
 \mu,\ \sigma_{within},\ \sigma_{between}
 $$
 
----
 
-# 🔮 Prediction Framework
+
+**Prediction Framework**
 
 ## Case A — Known Artist
 
+<details> <summary> </summary>
+  
 ### Step 1: Estimate Artist Mean (Shrinkage)
 
 Posterior mean behaves like:
 
-$$
-E[\mu_j \mid data]
-\approx w_j \bar y_j + (1-w_j)\mu
-$$
+$$E[\mu_j \mid data]\approx w_j \bar y_j + (1-w_j)\mu$$
 
 Where:
 - small $$n_j$$ → more shrinkage to global mean  
@@ -131,43 +139,41 @@ Where:
 
 This is **borrowing information from the population**.
 
----
+
 
 ### Step 2: Predict Next Song
 
-$$
-Y_{new,j}
-\sim \mathcal{N}(\mu_j, \sigma_{within}^2)
-$$
 
----
+
+  $$Y_{new,j}\sim \mathcal{N}(\mu_j, \sigma_{within}^2)$$
+
 
 ### Step 3: Sources of Uncertainty
 
 1) Song-to-song randomness  
 2) Uncertainty in $$\mu_j$$
 
+</details>
+
 ---
 
 ## Case B — Unseen Artist
+
+<details>
+
+### whatever
 
 Extra step required.
 
 ### Step 1: Sample Artist Mean
 
-$$
-\mu_{new}
-\sim \mathcal{N}(\mu, \sigma_{between}^2)
-$$
+$$\mu_{new} \sim \mathcal{N}(\mu, \sigma_{between}^2)$$
 
 ### Step 2: Sample Song Popularity
 
-$$
-Y_{new}
-\sim \mathcal{N}(\mu_{new}, \sigma_{within}^2)
-$$
+$$Y_{new}\sim \mathcal{N}(\mu_{new}, \sigma_{within}^2)$$
 
----
+
 
 ### Uncertainty Sources
 
@@ -177,41 +183,29 @@ $$
 
 Predictions are wider than for known artists.
 
+</details>
+
+
 ---
 
-# 🧠 Key Takeaways
+## 🧠 Key Takeaways
 
-## Complete Pooling
+
+Hierarchical models estimate artist-specific means that are **shrunk toward a global mean**, then predict future songs using shared within-artist variability while accounting for uncertainty.
+
+
+### Complete Pooling
 Good for global average, bad for individuals.
 
-## No Pooling
+### No Pooling
 Good for large-sample artists, risky for small samples.
 
-## Hierarchical Pooling
+### Hierarchical Pooling
 Best balance:
 - Uses artist data  
 - Stabilizes small samples  
 - Predicts unseen artists  
 - Shares information intelligently
 
----
 
-# 📌 One-Sentence Summary
-
-Hierarchical models estimate artist-specific means that are **shrunk toward a global mean**, then predict future songs using shared within-artist variability while accounting for uncertainty.
-
----
-
-# 🚀 Practical Insight
-
-If an artist has:
-
-- **2 songs** → heavy shrinkage to global mean  
-- **40 songs** → minimal shrinkage
-
-The model automatically adjusts confidence.
-
----
-
-# 📎 Mental Model
 
