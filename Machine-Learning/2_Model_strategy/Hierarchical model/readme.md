@@ -19,48 +19,27 @@ Predict the **next-song popularity** for:
 
 <details>
 
-### Assumption
-All songs are exchangeable. Artist identity is ignored.
-
-### Model
-$$
-Y \sim \mathcal{N}(\mu, \sigma^2)
-$$
-
-### Prediction
-Every artist gets the same prediction centered at the global mean.
-
-### Pros
-✅ Simple  
-✅ Good for estimating “average song overall”
-
-### Cons
-❌ Ignores artist differences  
-❌ Beyoncé ≈ unknown artist
+| Aspect        | Description |
+|---------------|------------|
+| Assumption    | All songs are exchangeable. Artist identity is ignored. |
+| Model         | $$Y \sim \mathcal{N}(\mu, \sigma^2)$$ |
+| Prediction    | Every artist gets the same prediction centered at the global mean. |
+| Pros          | ✅ Simple <br> ✅ Good for estimating “average song overall” |
+| Cons          | ❌ Ignores artist differences <br> ❌ Beyoncé ≈ unknown artist |
 
 </details>
 
 ## 2️⃣ No Pooling
 
 <details>
-### Assumption
-Each artist is totally independent.
 
-### Model
-$$
-Y_{ij} \sim \mathcal{N}(\mu_j, \sigma^2)
-$$
-
-### Prediction
-Each artist’s prediction is centered near their sample mean.
-
-### Pros
-✅ Captures artist differences
-
-### Cons
-❌ Unstable when artist has few songs  
-❌ Overfits noise  
-❌ Cannot predict unseen artists
+| Aspect     | Description |
+|------------|------------|
+| Assumption | Each artist is totally independent. |
+| Model      | $$Y_{ij} \sim \mathcal{N}(\mu_j, \sigma^2)$$ |
+| Prediction | Each artist’s prediction is centered near their sample mean. |
+| Pros       | ✅ Captures artist differences |
+| Cons       | ❌ Unstable when artist has few songs <br> ❌ Overfits noise <br> ❌ Cannot predict unseen artists |
 
 </details>
 
@@ -75,9 +54,7 @@ We **borrow strength across artists**.
 
 </details>
 
----
 
-## Model Structure
 
 ### Layer 1 — Within-Artist Model
 
