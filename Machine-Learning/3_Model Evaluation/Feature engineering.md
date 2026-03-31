@@ -4,18 +4,20 @@
 
 ---
 
-## 0. Cheap “pre-selection”
-- Remove near-constant / low-variance features
-  - categorical feature: entropy/gini index
-  - variance
-  	- ```sklearn.feature_selection.VarianceThreshold(threshold=0.0) ```
-- Handle multicollinearity / redundancy
-	- Compute correlation matrix 
+## 0. Cheap “pre-selection” of Variance
+
+1. Remove near-constant / **low-variance** features
+	  - categorical feature: entropy/gini index
+	  - variance
+	  	- ```sklearn.feature_selection.VarianceThreshold(threshold=0.0) ```
+2. Handle multicollinearity / redundancy
+	- Compute **correlation** matrix 
 	- Variance Inflation Factor (VIF)
-- Missingness-driven pruning
+3. **Missingness**-driven pruning
 
 
 ### how to handle multicollinearity?
+<details> 
 PCA is good example, when 
 - features are highly correlated / redundant
 - relationship is mostly linear
@@ -23,7 +25,7 @@ PCA is good example, when
 - train/test distribution shifts small
   
 <img width="735" height="326" alt="image" src="https://github.com/user-attachments/assets/a08aa6cf-fb61-43ca-99e0-1fc430bd777e" />
-
+</details>
 
 ---
 
