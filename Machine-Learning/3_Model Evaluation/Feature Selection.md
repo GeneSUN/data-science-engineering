@@ -4,7 +4,7 @@
 
 ---
 
-## 0. Cheap “pre-selection” of Variance
+## 1. Cheap “pre-selection” of Variance
 
 1. Remove near-constant / **low-variance** features
 	  - categorical feature: entropy/gini index
