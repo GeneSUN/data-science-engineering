@@ -29,17 +29,18 @@ PCA is good example, when
 
 ---
 
-## 2. Wrapper methods
+## 2. Filter/Wrapper-based feature selection methods
 
-firstly check Model-Based Feature Importance
-	- Tree-based models (Random Forest, XGBoost, etc.) naturally provide importance scores
-	- Use SHAP values or permutation importance for more interpretability
+firstly check Model-Based **Feature Importance**
+- Tree-based models (Random Forest, XGBoost, etc.) naturally provide importance scores
+- Use **SHAP** values or permutation importance for more interpretability
 
 for careful selection, Wrapper methods: 
-	- Use Forward/Backward Elimination,  
-	- Recursive Feature Elimination (RFE)
-		- ```sklearn.feature_selection.RFE```
-		- ```sklearn.feature_selection.RFECV```
+- Use **Forward/Backward** Elimination,  
+- **Recursive** Feature Elimination (RFE)
+	- ```sklearn.feature_selection.RFE```
+	- ```sklearn.feature_selection.RFECV```
+
 
 ## 3. Embedded methods (selection happens inside training)
 
@@ -61,20 +62,8 @@ for careful selection, Wrapper methods:
 	removed_features = coef[coef == 0].index.tolist()
 	```
 
-## 4. Stability strategies
 
-Idea: features that look good once might be unstable. especially for time series analysis, feature importance change :
-- Run selection over bootstraps / CV folds / time splits
-- Keep features that are consistently selected (stability selection / consensus selection)
-
----
-
-
-
-
-
-
-## 5. Consider Model-Specific Needs
+## *. Consider Model-Specific Needs
 Different models have different sensitivities:
 
 | Model Family                                                   | Feature Sensitivity                                                                          | Why This Happens                                                                                                                                     | 
@@ -86,7 +75,7 @@ Different models have different sensitivities:
 
 Some models benefit from more engineered features, while others perform better with raw data and embedded learning.
 
-## Categorical feature selections
+
 
 ## Summary
 **Post-Modeling Feature Selection** and **Subset Selection** are the most common methods i used.
