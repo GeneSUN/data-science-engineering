@@ -12,9 +12,11 @@
         - Diffusion-Based Probabilistic Models
         - [Why NGBoost is not popular?](#why-ngboost-is-not-popular)
 
-#  Derived Probabilistic Prediction Methods
+##  Derived Probabilistic Prediction Methods
 
-## 1. Prediction intervals using conformal prediction
+### 1. Prediction intervals using conformal prediction
+
+<details> 
 
 Conformal prediction (1) uses a regression model to produce point forecasts, and (2) uses **empirical forecast errors** to construct prediction **intervals**.
 
@@ -41,7 +43,12 @@ For example:
   
 - If you want the usual 90% interval (α = 0.10), q = 50:
 
-## 2. Binary classification on a thresholded target
+</details>
+
+
+### 2. Binary classification on a thresholded target
+
+<details> 
 
 Convert a continuous target **Y** into an event indicator $`Z_u = \mathbb{1}\{Y > u\}`$, then model  $$Pr(Y>u∣X)$$
 
@@ -56,11 +63,15 @@ $$Pr(Y>u∣X)$$
 Example
 - [AWS predictive maintenance: predict failure probability, then trigger action if it exceeds a threshold](https://aws.amazon.com/blogs/iot/asset-maintenance-with-aws-iot-services-predict-and-respond-to-potential-failures-before-they-impact-your-business/)
 
+</details>
+
 ---
 
-# Probabilistic Modeling Approaches:
+## Probabilistic Modeling Approaches:
 
 ## Category 1 — Compatible Probabilistic Models (Modify classical ML/DL models)
+
+<details> 
 
 These models were not originally designed for probabilistic prediction, but can be adapted.
 
@@ -128,7 +139,11 @@ metrics["crossing_rate_q50>q90"] = quantile_crossing_rate(pred_q50, pred_q90)
 metrics["crossing_rate_q10>q90"] = quantile_crossing_rate(pred_q10, pred_q90)
 ```
 
+
+
 ### 1.2 Parametric Neural Networks
+
+
 
 PyTorch
 - What it does: You implement it by outputting **distribution parameters** and using **NLL loss**.
@@ -142,10 +157,13 @@ mu, sigma = self.forward(x)
 dist = torch.distributions.Normal(mu, sigma)
 loss = -dist.log_prob(y).mean()
 ```
+</details>
 
 ---
 
 ## Category 2 — Specialized Probabilistic Models
+
+<details> 
 
 These models are designed from the ground up to estimate probability distributions.
 
@@ -166,3 +184,4 @@ If you look at the tech industry:
 1. Quantile Models Solve 80% of Problems, Most real probabilistic business questions are simple.
 2. The remainning is Dominated by Deep Learning, in Large-Scale Probabilistic Systems
 
+</details>
