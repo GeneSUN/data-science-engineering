@@ -42,45 +42,46 @@
 
 ---
 
-## 3) Split Strategy (Before Heavy Modeling)
+## 3) Clean + Preprocess (Data Preparation)
 
 <details>
 
-### 3.1 Train / Validation / Test Split
+**Key idea:** Ensure preprocessing is identical in training and serving (avoid training-serving skew)
+
+### 3.1 Fix Types & Units
+- Convert numeric stored as strings
+- Standardize units (e.g., sqft vs m²)
+
+### 3.2 Handle Missing Values
+- Numeric: median / constant + missing indicator
+- Categorical: "Unknown"
+
+### 3.3 Encode Categoricals
+- One-hot encoding is a strong default for tabular data
+
+</details>
+
+---
+
+## 4) Split Strategy (Before Heavy Modeling)
+
+<details>
+
+### 4.1 Train / Validation / Test Split
 - Random split if data is i.i.d.
 - Time-based split if market shifts (train on past → test on future)
 
-### 3.2 Group Leakage
+### 4.2 Group Leakage
 - If multiple sales per property:
   - Split by `property_id`
   - Avoid same house appearing in both train and test
 
 </details>
 
----
 
-## 4) Clean + Preprocess (Data Preparation)
 
-<details>
 
-**Key idea:** Ensure preprocessing is identical in training and serving (avoid training-serving skew)
 
-### 4.1 Fix Types & Units
-- Convert numeric stored as strings
-- Standardize units (e.g., sqft vs m²)
-
-### 4.2 Handle Missing Values
-- Numeric: median / constant + missing indicator
-- Categorical: "Unknown"
-
-### 4.3 Encode Categoricals
-- One-hot encoding is a strong default for tabular data
-
-### 4.4 Scale Numeric Features
-- Helpful for linear models
-- Not required for tree-based models
-
-</details>
 
 ---
 
@@ -88,12 +89,12 @@
 
 <details>
 
-- Location-based features (zipcode, neighborhood stats)
-- Price per sqft
-- Age of property (current_year - built_year)
-- Interaction features (e.g., location × size)
-- Aggregations (avg price in area, historical trends)
-- Temporal features (market trend, seasonality)
+### Scale Numeric Features
+- Helpful for linear models
+- Not required for tree-based models
+### PCA
+
+
 
 </details>
 
