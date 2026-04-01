@@ -4,18 +4,20 @@
 
 ---
 
-## 0. Cheap “pre-selection”
-- Remove near-constant / low-variance features
-  - categorical feature: entropy/gini index
-  - variance
-  	- ```sklearn.feature_selection.VarianceThreshold(threshold=0.0) ```
-- Handle multicollinearity / redundancy
-	- Compute correlation matrix 
+## 1. Cheap “pre-selection” of Variance
+
+1. Remove near-constant / **low-variance** features
+	  - categorical feature: entropy/gini index
+	  - variance
+	  	- ```sklearn.feature_selection.VarianceThreshold(threshold=0.0) ```
+2. Handle multicollinearity / redundancy
+	- Compute **correlation** matrix 
 	- Variance Inflation Factor (VIF)
-- Missingness-driven pruning
+3. **Missingness**-driven pruning
 
 
 ### how to handle multicollinearity?
+<details> 
 PCA is good example, when 
 - features are highly correlated / redundant
 - relationship is mostly linear
@@ -23,21 +25,22 @@ PCA is good example, when
 - train/test distribution shifts small
   
 <img width="735" height="326" alt="image" src="https://github.com/user-attachments/assets/a08aa6cf-fb61-43ca-99e0-1fc430bd777e" />
-
+</details>
 
 ---
 
-## 2. Wrapper methods
+## 2. Filter/Wrapper-based feature selection methods
 
-firstly check Model-Based Feature Importance
-	- Tree-based models (Random Forest, XGBoost, etc.) naturally provide importance scores
-	- Use SHAP values or permutation importance for more interpretability
+firstly check Model-Based **Feature Importance**
+- Tree-based models (Random Forest, XGBoost, etc.) naturally provide importance scores
+- Use **SHAP** values or permutation importance for more interpretability
 
 for careful selection, Wrapper methods: 
-	- Use Forward/Backward Elimination,  
-	- Recursive Feature Elimination (RFE)
-		- ```sklearn.feature_selection.RFE```
-		- ```sklearn.feature_selection.RFECV```
+- Use **Forward/Backward** Elimination,  
+- **Recursive** Feature Elimination (RFE)
+	- ```sklearn.feature_selection.RFE```
+	- ```sklearn.feature_selection.RFECV```
+
 
 ## 3. Embedded methods (selection happens inside training)
 
@@ -59,20 +62,8 @@ for careful selection, Wrapper methods:
 	removed_features = coef[coef == 0].index.tolist()
 	```
 
-## 4. Stability strategies
 
-Idea: features that look good once might be unstable. especially for time series analysis, feature importance change :
-- Run selection over bootstraps / CV folds / time splits
-- Keep features that are consistently selected (stability selection / consensus selection)
-
----
-
-
-
-
-
-
-## 5. Consider Model-Specific Needs
+## *. Consider Model-Specific Needs
 Different models have different sensitivities:
 
 | Model Family                                                   | Feature Sensitivity                                                                          | Why This Happens                                                                                                                                     | 
@@ -84,7 +75,7 @@ Different models have different sensitivities:
 
 Some models benefit from more engineered features, while others perform better with raw data and embedded learning.
 
-## Categorical feature selections
+
 
 ## Summary
 **Post-Modeling Feature Selection** and **Subset Selection** are the most common methods i used.
