@@ -1,11 +1,49 @@
 # Optimization Techniques
 
-Practical tools for training deep networks effectively.
+These techniques form a coherent story — each one addressing a specific problem at a specific stage of training.
 
-| File | Topic |
-|------|-------|
-| [optimizers.md](optimizers.md) | SGD, Momentum, Adam, RMSProp — update rules compared |
-| [normalization.md](normalization.md) | BatchNorm, LayerNorm — stabilizing activations |
-| [initialization.md](initialization.md) | Xavier, He — why starting weights matter |
-| [lr-scheduling.md](lr-scheduling.md) | Warmup, decay, cosine — adjusting learning rate over time |
-| [regularization.md](regularization.md) | Dropout, Weight Decay, Early Stopping — fighting overfitting |
+```
+[1. Initialize] → [2. Forward Pass] → [3. Compute Loss] → [4. Backprop + Update] → repeat
+                       ↑                                          ↑
+               BatchNorm, Dropout                        Optimizer, LR Schedule
+```
+
+---
+
+<details>
+<summary><b>Step 1 — Initialization</b></summary>
+
+Before training begins, weights must be set carefully. Bad initialization causes gradients to vanish or explode before the first update even happens.
+
+→ [He / Xavier Initialization](initialization.md)
+
+</details>
+
+<details>
+<summary><b>Step 2 — Forward Pass</b></summary>
+
+As activations flow layer to layer, two problems can emerge:
+
+- **Activations drift** → [Normalization](normalization.md) (BatchNorm / LayerNorm)
+- **Overfitting** → [Regularization](regularization.md) (Dropout, Weight Decay)
+
+</details>
+
+<details>
+<summary><b>Step 3 — Weight Update</b></summary>
+
+After backprop computes the gradients, two choices shape how weights are updated:
+
+- **How to step** → [Optimizer](optimizers.md) (SGD, Adam)
+- **How large to step** → [LR Scheduling](lr-scheduling.md) (warmup, cosine decay)
+
+</details>
+
+<details>
+<summary><b>Step 4 — When to Stop</b></summary>
+
+Training longer isn't always better — at some point validation loss starts rising.
+
+→ [Early Stopping](regularization.md)
+
+</details>
