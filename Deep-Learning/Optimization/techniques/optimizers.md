@@ -59,3 +59,5 @@ Defaults: $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\eta = 0.001$.
 | Adam | Yes | Yes | General default |
 
 > **Note:** "SGD" in frameworks like PyTorch (`torch.optim.SGD`) refers to the *update rule*, not the batch strategy. Mini-batch is almost always used underneath.
+
+![alt text](image.png)

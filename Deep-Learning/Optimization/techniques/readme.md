@@ -26,6 +26,7 @@ As activations flow layer to layer, two problems can emerge:
 
 - **Activations drift** → [Normalization](normalization.md) (BatchNorm / LayerNorm)
 - **Overfitting** → [Regularization](regularization.md) (Dropout, Weight Decay)
+- **Network too deep to learn complex nonlinear patterns** → [Skip Connections](skip-connections.md)
 
 </details>
 
