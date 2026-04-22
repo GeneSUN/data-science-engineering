@@ -1,56 +1,67 @@
+# Probabilistic Regression Metrics
+
 ## Table of Contents
 
-1. [Evaluate the full distribution](#1-evaluate-the-full-distribution)
-   - [CRPS](#11-crps)
-   - [Log score / Negative log-likelihood](#12-log-score--negative-log-likelihood)
-   - [Interval Coverage](#13-interval_coverage)
-   - [Pinball Loss](#14-pinball_loss)
-   - [WQL](#15-wql)
-2. [Evaluate the specific threshold event (Classification Metrics)](#2-evaluate-the-specific-threshold-event-classification-metrics)
-   - [Brier Score](#21-brier-score)
-   - [Precision / Recall or ROC-AUC](#22-precisionrecall-or-roc-auc)
-3. [Regression Metrics](#3-regression-metrics)
+1. [Evaluate the Full Distribution](#1-evaluate-the-full-distribution)
+   - [1.1 CRPS](#11-crps)
+   - [1.2 Log Score / Negative Log-Likelihood](#12-log-score--negative-log-likelihood)
+   - [1.3 Interval Coverage](#13-interval-coverage)
+   - [1.4 Pinball Loss](#14-pinball-loss)
+   - [1.5 WQL](#15-wql)
+2. [Evaluate a Specific Threshold Event (Classification Metrics)](#2-evaluate-a-specific-threshold-event-classification-metrics)
+   - [2.1 Brier Score](#21-brier-score)
+   - [2.2 Precision / Recall or ROC-AUC](#22-precision--recall-or-roc-auc)
+3. [Regression Metrics (Point Accuracy)](#3-regression-metrics-point-accuracy)
 
-## 1. Evaluate the full distribution
+---
 
-### 1.1. CRPS
+## 1. Evaluate the Full Distribution
 
-### 1.2. Log score / Negative log-likelihood:
+These metrics assess how well the model captures the *shape and spread* of future values — not just the mean.
 
-### 1.3. Interval_coverage
+### 1.1 CRPS
+*(Continuous Ranked Probability Score)*
 
-### 1.4. pinball_loss
+### 1.2 Log Score / Negative Log-Likelihood
 
-### 1.5. WQL
-(weighted quantile loss)
+### 1.3 Interval Coverage
 
-## 2. Evaluate the specific threshold event-Classification Metrics
+### 1.4 Pinball Loss
 
-### 2.1. Brier score:
+### 1.5 WQL
+*(Weighted Quantile Loss)*
 
-**Brier score: good for one threshold event, but throws away magnitude once the label is created.**
+---
 
-$$Brier=(p−y)^2$$
+## 2. Evaluate a Specific Threshold Event (Classification Metrics)
 
-| Case | (p_i) | (o_i) | ((p_i-o_i)^2) |
-| ---- | ----: | ----: | ------------: |
-| 1    |  0.90 |     1 |          0.01 |
-| 2    |  0.80 |     0 |          0.64 |
-| 5    |  0.55 |     0 |        0.3025 |
-| 9    |  0.10 |     0 |          0.01 |
-| 10   |  0.05 |     1 |        0.9025 |
+These metrics treat threshold-exceedance as a binary classification problem.
 
+### 2.1 Brier Score
 
-> this is very similar to cross-entropy, which punishes extreme confident wrong predictions much more harshly than Brier score.
+Good for evaluating a single threshold event, but throws away magnitude once the binary label is created.
 
-$$LogLoss=−[ylogp+(1−y)log(1−p)]$$
+$$\text{Brier} = (p - y)^2$$
 
+| Case | $p_i$ | $o_i$ | $(p_i - o_i)^2$ |
+|------|------:|------:|----------------:|
+| 1    |  0.90 |     1 |          0.0100 |
+| 2    |  0.80 |     0 |          0.6400 |
+| 5    |  0.55 |     0 |          0.3025 |
+| 9    |  0.10 |     0 |          0.0100 |
+| 10   |  0.05 |     1 |          0.9025 |
 
+**Comparison with Log Loss:** Log Loss punishes confidently wrong predictions much more harshly than Brier Score.
 
-### 2.2. Precision/Recall or ROC-AUC:
+$$\text{Log Loss} = -\left[y \log p + (1 - y) \log(1 - p)\right]$$
 
+### 2.2 Precision / Recall or ROC-AUC
 
-## 3. Regression Metrics
+---
+
+## 3. Regression Metrics (Point Accuracy)
+
+Evaluates the point forecast (typically the predicted median) against the true value.
 
 ```python
 metrics_point = {
@@ -58,9 +69,3 @@ metrics_point = {
     'RMSE': rmse(y_act, y_med),
 }
 ```
-
-
-
-
-
-
