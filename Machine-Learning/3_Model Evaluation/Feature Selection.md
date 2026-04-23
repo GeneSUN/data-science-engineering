@@ -1,209 +1,115 @@
-# Feature engineering
+# Feature Engineering
 
+<details>
+<summary>1. Domain Knowledge (Start Here)</summary>
 
+Before applying any statistical or ML technique:
+- Consult business context and subject matter experts
+- Understand which features are likely relevant or redundant
+- Identify data quality issues, potential leakage features, and proxy variables
 
----
-
-## 1. Cheap “pre-selection” of Variance
-
-1. Remove near-constant / **low-variance** features
-	  - categorical feature: entropy/gini index
-	  - variance
-	  	- ```sklearn.feature_selection.VarianceThreshold(threshold=0.0) ```
-2. Handle multicollinearity / redundancy
-	- Compute **correlation** matrix 
-	- Variance Inflation Factor (VIF)
-3. **Missingness**-driven pruning
-
-
-### how to handle multicollinearity?
-<details> 
-PCA is good example, when 
-- features are highly correlated / redundant
-- relationship is mostly linear
-- mainly care about prediction, not interpretation
-- train/test distribution shifts small
-  
-<img width="735" height="326" alt="image" src="https://github.com/user-attachments/assets/a08aa6cf-fb61-43ca-99e0-1fc430bd777e" />
 </details>
 
----
+<details>
+<summary>2. Statistical Analysis</summary>
 
-## 2. Filter/Wrapper-based feature selection methods
+<details>
+<summary>2a. EDA</summary>
 
-firstly check Model-Based **Feature Importance**
-- Tree-based models (Random Forest, XGBoost, etc.) naturally provide importance scores
-- Use **SHAP** values or permutation importance for more interpretability
+- Distribution of features
+- Remove features with low variance
+- Flag features with too many missing values
 
-for careful selection, Wrapper methods: 
-- Use **Forward/Backward** Elimination,  
-- **Recursive** Feature Elimination (RFE)
-	- ```sklearn.feature_selection.RFE```
-	- ```sklearn.feature_selection.RFECV```
+</details>
 
+<details>
+<summary>2b. Feature–Target Correlation</summary>
 
-## 3. Embedded methods (selection happens inside training)
+- **Numerical target** — Pearson or Spearman correlation coefficients
+- **Categorical target** — Chi-squared test or Mutual Information
 
-	```python
-	from sklearn.linear_model import LogisticRegression
-	
-	model = LogisticRegression(
-	    penalty="l1",
-	    solver="liblinear",
-	    C=0.1,
-	    random_state=42
-	)
-	model.fit(X, y)
-	
-	
-	coef = pd.Series(model.coef_[0], index=feature_names)
-	
-	selected_features = coef[coef != 0].index.tolist()
-	removed_features = coef[coef == 0].index.tolist()
-	```
+</details>
 
+<details>
+<summary>2c. Multicollinearity Check</summary>
 
-## *. Consider Model-Specific Needs
-Different models have different sensitivities:
+- Compute correlation matrix or Variance Inflation Factor (VIF) to detect highly correlated features
+- Drop or combine redundant variables
 
-| Model Family                                                   | Feature Sensitivity                                                                          | Why This Happens                                                                                                                                     | 
-| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | 
-| **Tree-Based Models (e.g., Random Forest)**                    | **Moderately robust**                           | Trees split greedily on impurity reduction;                           |
-| **Gradient Boosted Trees (e.g., XGBoost, LightGBM)**           | **More sensitive than Random Forests** | Boosting sequentially fits residuals, so noise can be repeatedly amplified across trees                                                              |
-| **General Linear Models (e.g., Linear / Logistic Regression)** | **Highly sensitive**                          | Coefficients are estimated globally; correlated features lead to unstable or inflated weights                                                        | 
-| **Neural Networks**                                            | **Less sensitive**, but high-dimensional noise increases cost | Hidden layers learn nonlinear feature combinations, but optimization cost and data requirements grow with feature count                              | 
+</details>
 
-Some models benefit from more engineered features, while others perform better with raw data and embedded learning.
+</details>
 
+<details>
+<summary>3. ML-Based Feature Selection</summary>
 
+<details>
+<summary>3a. Subset Selection</summary>
 
-## Summary
-**Post-Modeling Feature Selection** and **Subset Selection** are the most common methods i used.
+- Forward Selection, Backward Elimination, or Recursive Feature Elimination (RFE)
 
+</details>
 
-- https://colab.research.google.com/drive/1s7sReQ_0cpIsWHwGSSls5PVenGyayZ1T#scrollTo=BLkQ6zYT0NvN
+<details>
+<summary>3b. Regularization Methods</summary>
 
-```python
+- **Lasso (L1)** or **ElasticNet** automatically shrink unimportant features
+- Especially useful in high-dimensional data
 
-from dataclasses import MISSING, dataclass, field
-from typing import List, Optional, Iterable
-import pandas as pd
-import copy
+</details>
 
-@dataclass
-class FeatureConfig:
+<details>
+<summary>3c. Dimensionality Reduction</summary>
 
-    date: List = field(
-        default=MISSING,
-        metadata={"help": "Column name of the date column"},
-    )
-    target: str = field(
-        default=MISSING,
-        metadata={"help": "Column name of the target column"},
-    )
+- **PCA** or **Truncated SVD** for unsupervised feature compression
+- Useful when dealing with highly correlated numeric variables
 
-    original_target: str = field(
-        default=None,
-        metadata={
-            "help": "Column name of the original target column in acse of transformed target. If None, it will be assigned same value as target"
-        },
-    )
+</details>
 
-    continuous_features: List[str] = field(
-        default_factory=list,
-        metadata={"help": "Column names of the numeric fields. Defaults to []"},
-    )
-    categorical_features: List[str] = field(
-        default_factory=list,
-        metadata={"help": "Column names of the categorical fields. Defaults to []"},
-    )
-    boolean_features: List[str] = field(
-        default_factory=list,
-        metadata={"help": "Column names of the boolean fields. Defaults to []"},
-    )
+</details>
 
-    index_cols: str = field(
-        default_factory=list,
-        metadata={
-            "help": "Column names which needs to be set as index in the X and Y dataframes."
-        },
-    )
-    exogenous_features: List[str] = field(
-        default_factory=list,
-        metadata={
-            "help": "Column names of the exogenous features. Must be a subset of categorical and continuous features"
-        },
-    )
-    feature_list: List[str] = field(init=False)
+<details>
+<summary>4. Post-Modeling Feature Selection</summary>
 
-    def __post_init__(self):
-        assert (
-            len(self.categorical_features) + len(self.continuous_features) > 0
-        ), "There should be at-least one feature defined in categorical or continuous columns"
-        self.feature_list = (
-            self.categorical_features + self.continuous_features + self.boolean_features
-        )
-        ...
+<details>
+<summary>4a. Model-Based Feature Importance</summary>
 
-    def get_X_y(
-        self, df: pd.DataFrame, categorical: bool = False, exogenous: bool = False
-    ):
-        ...
-        return X, y, y_orig
+- Tree-based models (Random Forest, XGBoost) provide native importance scores
+- Use **SHAP values** or **permutation importance** for more interpretable results
 
-# ------------------------------------------------------------------------------
-feat_config = FeatureConfig(
-    date="timestamp",
-    target="energy_consumption",
-    continuous_features=[
-        "visibility",
-        "windBearing",
-        "temperature",
-        "dewPoint",
-        "pressure",
-        "apparentTemperature",
-        "windSpeed",
-        "humidity",
-        "energy_consumption_lag_1",
-        "energy_consumption_lag_2",
-        "energy_consumption_lag_3",
-       ...
-    ],
-    categorical_features=[
-        "holidays",
-        "precipType",
-        "icon",
-        "summary",
-        "timestamp_Month",
-        "timestamp_Quarter",
-        "timestamp_WeekDay",
-        "timestamp_Dayofweek",
-        "timestamp_Dayofyear",
-        "timestamp_Hour",
-        "timestamp_Minute",
-    ],
-    boolean_features=[
-        "timestamp_Is_quarter_end",
-        "timestamp_Is_quarter_start",
-        "timestamp_Is_year_end",
-        "timestamp_Is_year_start",
-        "timestamp_Is_month_start",
-    ],
-    index_cols=["timestamp"],
-    exogenous_features=[
-        "holidays",
-        "precipType",
-        "icon",
-        "summary",
-        "visibility",
-        "windBearing",
-        "temperature",
-        "dewPoint",
-        "pressure",
-        "apparentTemperature",
-        "windSpeed",
-        "humidity",
-    ],
-)
+</details>
 
-```
+<details>
+<summary>4b. Statistical Significance (linear models)</summary>
+
+- Use p-values from GLM or logistic regression to assess feature significance
+- Beware: multicollinearity and sample size can distort p-values
+
+</details>
+
+</details>
+
+<details>
+<summary>5. Collaboration and Feedback</summary>
+
+Present selected features and their importance to:
+- **Business stakeholders** — validate whether features make domain sense
+- **Engineering / domain experts** — check for technical relevance
+
+Use this feedback loop to adjust, refine, or re-engineer features.
+
+</details>
+
+<details>
+<summary>6. Model-Specific Considerations</summary>
+
+Different models have different feature sensitivities:
+
+| Model Type | Feature Sensitivity |
+|---|---|
+| **KNN** | Sensitive to irrelevant or high-dimensional features — needs strong selection |
+| **Tree-based models** | Robust to redundant features but can overfit with noise |
+| **Linear models** | Sensitive to multicollinearity and irrelevant features |
+| **Deep learning** | Less sensitive due to automatic feature learning, but high dimensions still affect training time |
+
+</details>
