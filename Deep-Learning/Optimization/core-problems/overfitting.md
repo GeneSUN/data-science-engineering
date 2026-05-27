@@ -22,22 +22,21 @@ Deep networks have millions of parameters — far more than training samples in 
 
 ### Solutions
 
-**Reduce model capacity:**
-- Use a smaller network (fewer layers / neurons)
+**1. Lower accuracy — prevent the model from fitting too precisely**
 
-**Add noise during training:**
-- **Dropout** — randomly disables neurons, prevents co-adaptation
-- **Data augmentation** — artificially expand the training set with transformations
+| Technique | How it helps |
+|-----------|-------------|
+| Reduce model capacity | Fewer layers / neurons limits the model's ability to memorise |
+| Early stopping | Halt training when validation loss stops improving |
 
-**Penalize complexity:**
-- **Weight Decay (L2)** — keeps weights small, discourages over-reliance on any feature
-- **L1 regularization** — encourages sparse weights
+**2. Introduce error — inject noise so the model cannot rely on exact patterns**
 
-**Stop before overfitting:**
-- **Early stopping** — monitor validation loss, halt when it stops improving
-
-**Stabilize training:**
-- **BatchNorm / LayerNorm** — acts as mild regularization
+| Technique | How it helps |
+|-----------|-------------|
+| Data augmentation | Expands the training set with transformations; model sees more variation |
+| Dropout | Randomly disables neurons each step; prevents co-adaptation |
+| L2 regularization (weight decay) | Penalises large weights; discourages over-reliance on any single feature |
+| L1 regularization | Penalises weight magnitude; encourages sparse weights |
 
 ---
 
