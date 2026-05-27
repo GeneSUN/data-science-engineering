@@ -54,3 +54,23 @@ You rarely need to tune everything. The usual priority:
 2. **Batch size** — adjust based on hardware and target quality
 3. **Weight decay** — small but consistent effect on generalization
 4. **Architecture depth/width** — tune last, after training is stable
+
+
+
+High Impact (tune first):
+- Learning rate — single most important hyperparameter
+- Batch size
+- Network architecture (depth, width)
+- Regularization (dropout rate, weight decay)
+
+
+Medium Impact:
+- Learning rate scheduler (step decay, cosine annealing, warmup)
+- Optimizer choice (Adam, SGD+momentum, AdamW)
+- Weight initialization
+
+
+Low Impact (tune last):
+- Momentum coefficients (β₁, β₂ in Adam)
+- Epsilon in Adam
+- Gradient clipping threshold
