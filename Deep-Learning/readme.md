@@ -1,2 +1,46 @@
 
-![alt text](image.png)
+
+
+| Rank | Paper                                                                                          |      Year | Approx. citations | Why historically important                                                                                                                          |
+| ---: | ---------------------------------------------------------------------------------------------- | --------: | ----------------: | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    1 | **Deep Residual Learning for Image Recognition** — ResNet                                      | 2015/2016 |             ~323k | Made very deep networks trainable through residual/skip connections; foundation of modern CV backbones. ([CV Foundation][1])                        |
+|    2 | **Attention Is All You Need** — Transformer                                                    |      2017 |             ~250k | Removed recurrence/convolution for sequence modeling; foundation of BERT, GPT, modern LLMs. ([NeurIPS Proceedings][2])                              |
+|    3 | **BERT: Pre-training of Deep Bidirectional Transformers**                                      | 2018/2019 |             ~171k | Made large-scale pretraining + fine-tuning the standard NLP workflow. ([ACL Anthology][3])                                                          |
+|    4 | **Adam: A Method for Stochastic Optimization**                                                 | 2014/2015 |             ~166k | Became one of the default optimizers for deep learning. ([Semantic Scholar][4])                                                                     |
+|    5 | **ImageNet Classification with Deep Convolutional Neural Networks** — AlexNet                  |      2012 |             ~156k | The “deep learning big bang” for computer vision: GPU + ReLU + dropout + large data. ([NeurIPS Proceedings][5])                                     |
+|    6 | **Long Short-Term Memory** — LSTM                                                              |      1997 |             ~152k | Solved long-range dependency issues in RNNs; dominated sequence modeling before Transformers. ([bioinf.jku.at][6])                                  |
+|    7 | **U-Net: Convolutional Networks for Biomedical Image Segmentation**                            |      2015 |             ~142k | Encoder-decoder with skip connections for pixel-level segmentation; hugely influential in medical imaging and diffusion models. ([Springer][7])     |
+|    8 | **Deep Learning** — LeCun, Bengio, Hinton review                                               |      2015 |             ~114k | Canonical review that summarized and legitimized the deep learning revolution. ([PubMed][8])                                                        |
+|    9 | **Generative Adversarial Networks** — GAN                                                      |      2014 |              ~96k | Introduced adversarial training: generator vs discriminator; key milestone for generative modeling. ([arXiv][9])                                    |
+|   10 | **Gradient-Based Learning Applied to Document Recognition** — LeNet-style CNNs                 |      1998 |              ~87k | Showed CNNs + backprop could work in real practical systems such as digit/check recognition. ([Stanford Vision][10])                                |
+|   11 | **You Only Look Once: Unified, Real-Time Object Detection** — YOLO                             | 2015/2016 |              ~78k | Reframed object detection as one-stage real-time prediction. ([CV Foundation][11])                                                                  |
+|   12 | **Going Deeper with Convolutions** — GoogLeNet/Inception                                       | 2014/2015 |              ~73k | Introduced Inception modules and efficient multi-scale CNN design. ([arXiv][12])                                                                    |
+|   13 | **Batch Normalization**                                                                        |      2015 |              ~69k | Stabilized and accelerated deep training; allowed higher learning rates and easier initialization. ([Proceedings of Machine Learning Research][13]) |
+|   14 | **Fully Convolutional Networks for Semantic Segmentation**                                     | 2014/2015 |              ~63k | Converted CNN classifiers into dense pixel-to-pixel predictors. ([CV Foundation][14])                                                               |
+|   15 | **Dropout: A Simple Way to Prevent Neural Networks from Overfitting**                          |      2014 |              ~63k | Classic regularization method; especially important in early deep networks. ([Journal of Machine Learning Research][15])                            |
+|   16 | **Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks**             |      2015 |              ~60k | Unified region proposal and detection into an end-to-end deep detector. ([NeurIPS Proceedings][16])                                                 |
+|   17 | **Efficient Estimation of Word Representations in Vector Space** — word2vec                    |      2013 |              ~54k | Made word embeddings practical, fast, and widely adopted. ([arXiv][17])                                                                             |
+|   18 | **Learning Representations by Back-Propagating Errors**                                        |      1986 |              ~50k | Popularized backpropagation for training multilayer neural networks. ([Nature][18])                                                                 |
+|   19 | **Neural Machine Translation by Jointly Learning to Align and Translate** — Bahdanau Attention | 2014/2015 |              ~44k | Introduced neural attention for encoder-decoder models; bridge between seq2seq and Transformer. ([arXiv][19])                                       |
+|   20 | **Human-level Control through Deep Reinforcement Learning** — DQN                              |      2015 |              ~42k | Combined deep learning with reinforcement learning from raw pixels; major milestone for DeepMind-style DRL. ([Nature][20])                          |
+
+[1]: https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf?utm_source=chatgpt.com "Deep Residual Learning for Image Recognition"
+[2]: https://proceedings.neurips.cc/paper/7181-attention-is-all-you-need.pdf?utm_source=chatgpt.com "Attention is All you Need"
+[3]: https://aclanthology.org/N19-1423/?utm_source=chatgpt.com "BERT: Pre-training of Deep Bidirectional Transformers for ..."
+[4]: https://www.semanticscholar.org/paper/Adam%3A-A-Method-for-Stochastic-Optimization-Kingma-Ba/a6cb366736791bcccc5c8639de5a8f9636bf87e8?utm_source=chatgpt.com "[PDF] Adam: A Method for Stochastic Optimization"
+[5]: https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf?utm_source=chatgpt.com "ImageNet Classification with Deep Convolutional Neural ..."
+[6]: https://www.bioinf.jku.at/publications/older/2604.pdf?utm_source=chatgpt.com "LONG SHORT-TERM MEMORY 1 INTRODUCTION"
+[7]: https://link.springer.com/chapter/10.1007/978-3-319-24574-4_28?utm_source=chatgpt.com "Convolutional Networks for Biomedical Image Segmentation"
+[8]: https://pubmed.ncbi.nlm.nih.gov/26017442/?utm_source=chatgpt.com "Deep learning"
+[9]: https://arxiv.org/abs/1406.2661?utm_source=chatgpt.com "[1406.2661] Generative Adversarial Networks"
+[10]: https://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf?utm_source=chatgpt.com "Gradient-Based Learning Applied to Document Recognition"
+[11]: https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Redmon_You_Only_Look_CVPR_2016_paper.pdf?utm_source=chatgpt.com "You Only Look Once: Unified, Real-Time Object Detection"
+[12]: https://arxiv.org/abs/1409.4842?utm_source=chatgpt.com "[1409.4842] Going Deeper with Convolutions"
+[13]: https://proceedings.mlr.press/v37/ioffe15.html?utm_source=chatgpt.com "Batch Normalization: Accelerating Deep Network Training by ..."
+[14]: https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Long_Fully_Convolutional_Networks_2015_CVPR_paper.pdf?utm_source=chatgpt.com "Fully Convolutional Networks for Semantic Segmentation"
+[15]: https://jmlr.org/papers/v15/srivastava14a.html?utm_source=chatgpt.com "A Simple Way to Prevent Neural Networks from Overfitting"
+[16]: https://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks?utm_source=chatgpt.com "Faster R-CNN: Towards Real-Time Object Detection with ..."
+[17]: https://arxiv.org/pdf/1301.3781?utm_source=chatgpt.com "Efficient Estimation of Word Representations in Vector Space"
+[18]: https://www.nature.com/articles/323533a0?utm_source=chatgpt.com "Learning representations by back-propagating errors"
+[19]: https://arxiv.org/pdf/1409.0473?utm_source=chatgpt.com "Neural machine translation by"
+[20]: https://www.nature.com/articles/nature14236?utm_source=chatgpt.com "Human-level control through deep reinforcement learning"
